@@ -1,21 +1,21 @@
-var React = require('react');
+import React from 'react'
 
-var NotesList = React.createClass({
-  propTypes: {
-    notes: React.PropTypes.array.isRequired
-  },
-  render: function() {
-    // var notes = this.props.notes.map(function(item, index) {
-    //   return <li key={index} className="list-group-item">{item['.value']}</li>
-    // });
+class NotesList extends React.Component {
+  render() {
+    const { notes } = this.props;
     return (
       <ul className="list-group">
-        {this.props.notes.map(function(note) {
-          return <li key={note['.key']} className="list-group-item">{note['.value']}</li>
-        })}
+        {notes.map(note => ( // parens allow implicit return not on same line
+          <li key={note['.key']} className="list-group-item">{note['.value']}</li>
+        ))}
       </ul>
     )
   }
-});
+}
 
-module.exports = NotesList;
+// have to add propTypes as a property of the class after-the-fact
+NotesList.propTypes = {
+  notes: React.PropTypes.array.isRequired,
+}
+
+export default NotesList
