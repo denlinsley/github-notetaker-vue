@@ -7,47 +7,51 @@ import ReactFireMixin from 'reactfire'
 import Firebase from 'firebase'
 import getGithubInfo from '../utils/helpers'
 
-var Profile = React.createClass({
+// cannot not use ES6 class syntax with mixins
+// see https://github.com/tylermcginnis/re-base for an alternative
+const Profile = React.createClass({
   mixins: [ReactFireMixin],
-  getInitialState: function() {
+  getInitialState() {
     return {
       notes: [],
       bio: {},
       repos: []
     }
   },
-  componentDidMount: function() {
-    this.ref = new Firebase('https://gh-note-taker-eh.firebaseio.com/');
-    this.init(this.props.params.username);
+  componentDidMount() {
+    this.ref = new Firebase('https://gh-note-taker-eh.firebaseio.com/')
+    this.init(this.props.params.username)
   },
-  componentWillReceiveProps: function(nextProps) {
-    this.unbind('notes');
-    this.init(nextProps.params.username);
+  componentWillReceiveProps(nextProps) {
+    this.unbind('notes')
+    this.init(nextProps.params.username)
   },
-  componentWillUnmount: function() {
-    this.unbind('notes');
+  componentWillUnmount() {
+    this.unbind('notes')
   },
-  init: function(username) {
-    var childRef = this.ref.child(username);
-    this.bindAsArray(childRef, 'notes'); // property on state to bind to
+  init(username) {
+    const childRef = this.ref.child(username)
+    this.bindAsArray(childRef, 'notes') // property on state to bind to
 
     getGithubInfo(username)
-      .then(function(data) {
+      .then((data) => {
         this.setState({
           bio: data.bio,
           repos: data.repos
-        });
-      }.bind(this));
+        })
+      })
   },
-  handleAddNote: function(newNote) {
+  handleAddNote(newNote) {
     // append a new note, key is array index (cf. push)
-    this.ref.child(this.props.params.username).child(this.state.notes.length).set(newNote);
+    this.ref.child(this.props.params.username)
+      .child(this.state.notes.length)
+      .set(newNote)
   },
-  render: function() {
+  render() {
     return (
       <div className="row">
         <div className="col-md-4">
-          <UserProfile username={this.props.params.username} bio={this.state.bio}/>
+          <UserProfile username={this.props.params.username} bio={this.state.bio} />
         </div>
         <div className="col-md-4">
           <Repos username={this.props.params.username} repos={this.state.repos} />
@@ -61,6 +65,6 @@ var Profile = React.createClass({
       </div>
     )
   }
-});
+})
 
 export default Profile

@@ -26,8 +26,8 @@ class AddNote extends React.Component {
 }
 
 AddNote.propTypes = {
-    username: React.PropTypes.string.isRequired,
-    addNote: React.PropTypes.func.isRequired
+  username: React.PropTypes.string.isRequired,
+  addNote: React.PropTypes.func.isRequired
 } 
 
 export default AddNote
