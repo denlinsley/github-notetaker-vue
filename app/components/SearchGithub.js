@@ -10,7 +10,7 @@ var SearchGithub = React.createClass({
     // the ref is the ELEMENT, we need element.value!!!
     var username = this.usernameRef.value;
     this.usernameRef.value = ''; 
-    this.history.pushState(null, 'profile/' + username);
+    this.history.pushState(null, '/profile/' + username);
   },
   render: function() {
     return (
