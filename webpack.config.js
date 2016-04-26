@@ -1,19 +1,27 @@
 module.exports = {
-  entry: './app/App.js',
+  entry: './app/main.js',
   output: {
     path: __dirname,
     filename: 'bundle.js'
   },
+  resolve: {
+    extensions: ['', '.js', '.vue']
+  },
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
+        test: /\.js$/,
         loader: 'babel',
-        query: {
-          presets: ['react', 'es2015']
-        }
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue'
       }
     ]
+  },
+  babel: {
+    presets: ['es2015'],
+    plugins: ['transform-runtime']
   }
 }
