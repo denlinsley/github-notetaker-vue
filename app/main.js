@@ -1,24 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './components/App'
-import Home from './components/Home'
-import Profile from './components/Profile'
+import { configureRoutes } from './config/routes'
 
 Vue.use(VueRouter)
 
 export const router = new VueRouter({
-  hashbang: false
+  hashbang: false,
+  history: true
 })
 
-router.map({
-  '/': {
-    component: Home
-  },
-  '/profile/:username': {
-    name: 'Profile',
-    component: Profile
-  }
-})
-
+configureRoutes(router)
 router.start(App, '#app')
 

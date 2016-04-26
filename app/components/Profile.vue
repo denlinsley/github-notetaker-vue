@@ -56,7 +56,6 @@ export default {
 
   created() {
     this.ref = new Firebase('https://gh-note-taker-eh.firebaseio.com/')
-    this.init(this.username)
   },
 
   destroyed() {
@@ -72,7 +71,7 @@ export default {
 
       // added `return` for resolving route data hook
       // but data should be assigned there?
-      return getGithubInfo(username)
+      getGithubInfo(username)
         .then((data) => {
           this.bio = data.bio,
           this.repos = data.repos
